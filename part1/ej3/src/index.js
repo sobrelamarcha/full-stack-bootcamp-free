@@ -17,6 +17,15 @@ const getRandomIntWithoutRepeating = (last) => {
   return randomNumber;
 };
 
+const AnecdoteWithMostVotes = ({ text }) => {
+  return (
+    <>
+      <h1>Anecdote with most votes</h1>
+      <p>{text}</p>
+    </>
+  );
+};
+
 const ShowVotes = ({ num }) => {
   return <p>has {num} votes</p>;
 };
@@ -39,7 +48,7 @@ const anecdotes = [
 ];
 
 const App = (props) => {
-  const [selected, setSelected] = useState(0);
+  const [selected, setSelected] = useState(getRandomInt(6)); // La primera vez mostrar una anecdote al azar
   const [votes, setVotes] = useState(new Uint8Array(6)); // new Uint8Array(6) equivale a poner [0,0,0,0,0,0]
 
   const handleRandomAnecdote = () => {
@@ -52,12 +61,30 @@ const App = (props) => {
     setVotes(copy);
   };
 
+  const buscarAnecdoteWithMaxVotes = () => {
+    // Buscar la posición de la anecdote con más votos
+    let maxVotes = 0;
+    let maxKey = 0;
+    votes.forEach(function (value, key) {
+      if (value > maxVotes) {
+        maxVotes = value;
+        maxKey = key;
+      }
+    });
+    return maxKey;
+  };
+
+  const anecdoteWithMaxVotes = buscarAnecdoteWithMaxVotes();
+
   return (
     <>
+      <h1>Anecdote of the day</h1>
       <div>{props.anecdotes[selected]}</div>
+      <br />
       <VoteButton handler={handleVoteButton} />
       <NewAnecdoteButton handler={handleRandomAnecdote} />
       <ShowVotes num={votes[selected]} />
+      <AnecdoteWithMostVotes text={anecdotes[anecdoteWithMaxVotes]} />
     </>
   );
 };
