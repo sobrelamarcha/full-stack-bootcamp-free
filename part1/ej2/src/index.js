@@ -7,9 +7,10 @@ const Button = ({ handler, text }) => {
 
 const Statistic = ({ text, value }) => {
   return (
-    <p>
-      {text} {value}
-    </p>
+    <tr>
+      <td>{text}</td>
+      <td>{value}</td>
+    </tr>
   );
 };
 
@@ -28,12 +29,22 @@ const Statistics = ({
   return (
     <>
       <h1>Statistics</h1>
-      <Statistic text="good" value={good} />
-      <Statistic text="neutral" value={neutral} />
-      <Statistic text="bad" value={bad} />
-      <Statistic text="all" value={all} />
-      <Statistic text="average" value={averagePositive} />
-      <Statistic text="positive" value={percentPositive} />
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Stat</th>
+            <th scope="col">Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <Statistic text="good" value={good} />
+          <Statistic text="neutral" value={neutral} />
+          <Statistic text="bad" value={bad} />
+          <Statistic text="all" value={all} />
+          <Statistic text="average" value={averagePositive} />
+          <Statistic text="positive" value={percentPositive} />
+        </tbody>
+      </table>
     </>
   );
 };
