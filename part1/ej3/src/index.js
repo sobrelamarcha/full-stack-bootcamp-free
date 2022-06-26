@@ -17,8 +17,16 @@ const getRandomIntWithoutRepeating = (last) => {
   return randomNumber;
 };
 
+const ShowVotes = ({ num }) => {
+  return <p>has {num} votes</p>;
+};
+
 const NewAnecdoteButton = ({ handler }) => {
   return <button onClick={handler}>Give me a new anecdote</button>;
+};
+
+const VoteButton = ({ handler }) => {
+  return <button onClick={handler}>Vote this anecdote</button>;
 };
 
 const anecdotes = [
@@ -32,15 +40,24 @@ const anecdotes = [
 
 const App = (props) => {
   const [selected, setSelected] = useState(0);
+  const [votes, setVotes] = useState([0, 0, 0, 0, 0, 0]);
 
   const handleRandomAnecdote = () => {
     setSelected(getRandomIntWithoutRepeating(selected));
   };
 
+  const handleVoteButton = () => {
+    const copy = [...votes];
+    copy[selected] += 1;
+    setVotes(copy);
+  };
+
   return (
     <>
       <div>{props.anecdotes[selected]}</div>
+      <VoteButton handler={handleVoteButton} />
       <NewAnecdoteButton handler={handleRandomAnecdote} />
+      <ShowVotes num={votes[selected]} />
     </>
   );
 };

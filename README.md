@@ -5,7 +5,10 @@ Ejercicios que voy haciendo del <https://fullstackopen.com/es/> gracias a los v√
 Voy por <https://fullstackopen.com/es/part1/un_estado_mas_complejo_depurando_aplicaciones_react#ejercicios-1-6-1-14>
 
 Escuchando:
-<https://www.youtube.com/watch?v=R_NVBWODk2A>
+
+- <https://www.youtube.com/results?search_query=code+music>
+- <https://www.youtube.com/results?search_query=nature+sounds>
+- <https://www.youtube.com/c/Musicforbodyandspirit/playlists>
 
 ## part 1
 
