@@ -1,6 +1,18 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 
+const Button = ({ handler, text }) => {
+  return <button onClick={handler}>{text}</button>;
+};
+
+const Statistic = ({ text, value }) => {
+  return (
+    <p>
+      {text} {value}
+    </p>
+  );
+};
+
 const Statistics = ({
   good,
   neutral,
@@ -16,12 +28,12 @@ const Statistics = ({
   return (
     <>
       <h1>Statistics</h1>
-      <p>good {good}</p>
-      <p>neutral {neutral}</p>
-      <p>bad {bad}</p>
-      <p>all {all}</p>
-      <p>average {averagePositive}</p>
-      <p>positive {percentPositive}%</p>
+      <Statistic text="good" value={good} />
+      <Statistic text="neutral" value={neutral} />
+      <Statistic text="bad" value={bad} />
+      <Statistic text="all" value={all} />
+      <Statistic text="average" value={averagePositive} />
+      <Statistic text="positive" value={percentPositive} />
     </>
   );
 };
@@ -55,9 +67,10 @@ const App = () => {
   return (
     <div>
       <h1>Give feedback</h1>
-      <button onClick={handleBtnGood}>good</button>
-      <button onClick={handleBtnNeutral}>neutral</button>
-      <button onClick={handleBtnBad}>bad</button>
+
+      <Button handler={handleBtnGood} text="good" />
+      <Button handler={handleBtnNeutral} text="neutral" />
+      <Button handler={handleBtnBad} text="bad" />
       <Statistics
         good={good}
         neutral={neutral}
