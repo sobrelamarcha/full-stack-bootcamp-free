@@ -40,7 +40,7 @@ const anecdotes = [
 
 const App = (props) => {
   const [selected, setSelected] = useState(0);
-  const [votes, setVotes] = useState([0, 0, 0, 0, 0, 0]);
+  const [votes, setVotes] = useState(new Uint8Array(6)); // new Uint8Array(6) equivale a poner [0,0,0,0,0,0]
 
   const handleRandomAnecdote = () => {
     setSelected(getRandomIntWithoutRepeating(selected));
