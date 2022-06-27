@@ -2,7 +2,7 @@
 
 Ejercicios que voy haciendo del <https://fullstackopen.com/es/> gracias a los vídeos de <https://midu.dev/bootcamp-full-stack-gratis-2021/>
 
-Voy por <https://fullstackopen.com/es/part1/un_estado_mas_complejo_depurando_aplicaciones_react#ejercicios-1-6-1-14>
+Voy por <https://fullstackopen.com/es/part2/formularios#ejercicios-2-6-2-10>
 
 Escuchando:
 
