@@ -12,8 +12,18 @@ const Numbers = ({ persons }) => {
 const App = () => {
   const [persons, setPersons] = useState([{ id: 1, name: "Arto Hellas" }]);
   const [newName, setNewName] = useState("");
+
   const addPerson = (event) => {
     event.preventDefault();
+
+    // comprobar si existe
+    const existe = persons.find((o) => o.name === newName);
+    if (existe) {
+      alert(`${newName} ya existe, no voy a añadirlo`);
+      return;
+    }
+
+    // añadir nombre
     const nuevoObj = { id: persons.length + 1, name: newName };
     setPersons(persons.concat(nuevoObj));
     console.log("añadido");
