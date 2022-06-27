@@ -20,11 +20,11 @@ const Content = (props) => {
 
   return <>{result}</>;
 };
-const Total = (props) => {
-  const total =
-    props.parts[0].exercises +
-    props.parts[1].exercises +
-    props.parts[2].exercises;
+const Total = ({ parts }) => {
+  const total = parts.reduce((accumulator, part) => {
+    //console.log("what is happening", accumulator, part.exercises);
+    return accumulator + part.exercises;
+  }, 0); // el 0 es el valor inicial del accumulator
 
   return <p>Number of exercises {total}</p>;
 };
@@ -34,7 +34,7 @@ const Course = ({ course }) => {
     <div>
       <Header course={course.name} />
       <Content parts={course.parts} />
-      {/* <Total parts={course.parts} /> */}
+      <Total parts={course.parts} />
     </div>
   );
 };
