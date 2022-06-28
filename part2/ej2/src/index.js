@@ -1,36 +1,9 @@
 import React, { useState } from "react";
 import { createRoot } from "react-dom/client";
-
-const Numbers = ({ persons, filter }) => {
-  const personsList = persons
-
-    .filter((person) => {
-      return person.name.toLowerCase().indexOf(filter.toLowerCase()) !== -1;
-    })
-
-    .map((person) => {
-      return (
-        <tr key={person.id}>
-          <td>{person.name}</td>
-          <td>{person.phone}</td>
-        </tr>
-      );
-    });
-
-  return (
-    <>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Phone</th>
-          </tr>
-        </thead>
-        <tbody>{personsList}</tbody>
-      </table>
-    </>
-  );
-};
+import { Persons } from "./Persons";
+import { PersonForm } from "./PersonForm";
+import { Filter } from "./Filter";
+import { validatePerson } from "./services/helpers";
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -44,24 +17,19 @@ const App = () => {
 
   const addPerson = (event) => {
     event.preventDefault();
-
-    // comprobar si existe
-    const existe = persons.find((person) => person.name === newName);
-    if (existe) {
-      alert(`${newName} ya existe, no voy a añadirlo`);
-      return;
-    }
-
-    // comprobar que el name no está vacío
-    if (newName.trim() === "") {
-      alert("Debes escribir algún nombre válido");
-      return;
+    // validar entrada
+    if (!validatePerson(persons, newName)) {
+      // alert("abortando inserción");
+      return false;
     }
 
     // añadir nombre y teléfono
     const nuevoObj = { id: persons.length + 1, name: newName, phone: newPhone };
     setPersons(persons.concat(nuevoObj));
-    console.log("añadido");
+
+    // vaciar inputs
+    setNewName("");
+    setNewPhone("");
   };
 
   const handlePersonChange = (event) => {
@@ -74,35 +42,22 @@ const App = () => {
 
   const handleFilterChange = (event) => {
     setNewFilter(event.target.value);
-    const namesFiltered = persons.filter((p) => {
-      return p.name.indexOf(newFilter) !== -1;
-    });
-    console.log(namesFiltered);
   };
 
   return (
     <div>
       <h2>Phonebook</h2>
       {/* <div>debug: {newName}</div> */}
-      <form onSubmit={addPerson}>
-        <div>
-          Name: <input value={newName} onChange={handlePersonChange} />
-        </div>
-        <div>
-          Phone: <input value={newPhone} onChange={handlePhoneChange} />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+      <PersonForm
+        addPerson={addPerson}
+        newName={newName}
+        handlePersonChange={handlePersonChange}
+        newPhone={newPhone}
+        handlePhoneChange={handlePhoneChange}
+      />
       <h2>Numbers</h2>
-      <div>
-        Filter shown with:{" "}
-        <input value={newFilter} onChange={handleFilterChange} />
-      </div>
-      <div>
-        <Numbers persons={persons} filter={newFilter} />
-      </div>
+      <Filter newFilter={newFilter} handleFilterChange={handleFilterChange} />
+      <Persons persons={persons} filter={newFilter} />
     </div>
   );
 };
