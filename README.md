@@ -2,7 +2,7 @@
 
 Ejercicios que voy haciendo del <https://fullstackopen.com/es/> gracias a los vídeos de <https://midu.dev/bootcamp-full-stack-gratis-2021/>
 
-Voy por <https://fullstackopen.com/es/part2/formularios#ejercicios-2-6-2-10>
+Voy por <https://fullstackopen.com/es/part2/obteniendo_datos_del_servidor#ejercicios-2-11-2-14>
 
 Escuchando:
 

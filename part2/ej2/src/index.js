@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { Persons } from "./Persons";
 import { PersonForm } from "./PersonForm";
@@ -6,11 +6,27 @@ import { Filter } from "./Filter";
 import { validatePerson } from "./services/helpers";
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { id: 1, name: "Arto Hellas", phone: "111" },
-    { id: 2, name: "Pepe Domingo", phone: "222" },
-    { id: 3, name: "Juan Pedro", phone: "333" },
-  ]);
+  // const personsData = [
+  //   { id: 1, name: "Arto Hellas", phone: "111" },
+  //   { id: 2, name: "Pepe Domingo", phone: "222" },
+  //   { id: 3, name: "Juan Pedro", phone: "333" },
+  // ];
+  const personsData = [];
+
+  // usamos un efecto para que sólo se llame una vez
+
+  useEffect(() => {
+    console.log("effect");
+
+    fetch("http://localhost:3001/persons")
+      .then((response) => response.json())
+      .then((data) => {
+        //console.log(data);
+        setPersons(data);
+      });
+  }, []);
+
+  const [persons, setPersons] = useState(personsData);
   const [newName, setNewName] = useState("");
   const [newPhone, setNewPhone] = useState("");
   const [newFilter, setNewFilter] = useState("");
