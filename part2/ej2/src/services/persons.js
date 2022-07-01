@@ -4,6 +4,14 @@ export const getAllPersons = () => {
   return fetch(baseUrl);
 };
 
+export const borrarPerson = (id) => {
+  console.log(`borrando definitivamente al id ${id}`);
+
+  return fetch(`${baseUrl}/${id}`, {
+    method: "DELETE",
+  });
+};
+
 export const createPerson = (nuevoObj) => {
   fetch(baseUrl, {
     method: "POST",

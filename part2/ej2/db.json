@@ -11,29 +11,9 @@
       "id": 2
     },
     {
-      "name": "Dan Abramov",
-      "phone": "12-43-234345",
-      "id": 3
-    },
-    {
-      "name": "Mary Poppendieck",
-      "phone": "39-23-6423122",
-      "id": 4
-    },
-    {
-      "id": 5,
-      "name": "prueba perez",
-      "phone": "111222"
-    },
-    {
-      "id": 6,
-      "name": "macaco bay",
-      "phone": "18283"
-    },
-    {
-      "id": 7,
-      "name": "filigran piriteco",
-      "phone": "3872628"
+      "id": 4,
+      "name": "Maria Curie",
+      "phone": "123843"
     }
   ]
 }

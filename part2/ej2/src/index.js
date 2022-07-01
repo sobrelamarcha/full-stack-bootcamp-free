@@ -4,7 +4,7 @@ import { Persons } from "./Persons";
 import { PersonForm } from "./PersonForm";
 import { Filter } from "./Filter";
 import { validatePerson } from "./services/helpers";
-import { createPerson, getAllPersons } from "./services/persons";
+import { createPerson, getAllPersons, borrarPerson } from "./services/persons";
 
 const App = () => {
   // const personsData = [
@@ -19,6 +19,7 @@ const App = () => {
   useEffect(() => {
     console.log("effect");
 
+    // recuperando personas del json-server
     getAllPersons()
       .then((response) => response.json())
       .then((data) => {
@@ -44,7 +45,7 @@ const App = () => {
     const nuevoObj = { id: persons.length + 1, name: newName, phone: newPhone };
     setPersons(persons.concat(nuevoObj));
 
-    // enviarlo al json-server
+    // creando persona en el json-server
     createPerson(nuevoObj);
 
     // vaciar inputs
@@ -64,6 +65,26 @@ const App = () => {
     setNewFilter(event.target.value);
   };
 
+  const handleDeletePerson = (person) => {
+    if (window.confirm(`Are you sure you want to delete ${person.name}?`)) {
+      console.log(`borrando ${person.id}`);
+
+      // borrando persona del json-server
+      borrarPerson(person.id)
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          // quitamos a la persona del array
+
+          const finalPersons = persons.filter((p) => {
+            return p.id !== person.id;
+          });
+          setPersons(finalPersons);
+        });
+    }
+  };
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -77,7 +98,11 @@ const App = () => {
       />
       <h2>Numbers</h2>
       <Filter newFilter={newFilter} handleFilterChange={handleFilterChange} />
-      <Persons persons={persons} filter={newFilter} />
+      <Persons
+        persons={persons}
+        filter={newFilter}
+        handleDeletePerson={handleDeletePerson}
+      />
     </div>
   );
 };

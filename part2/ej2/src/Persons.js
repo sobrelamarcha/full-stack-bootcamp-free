@@ -1,4 +1,4 @@
-export const Persons = ({ persons, filter }) => {
+export const Persons = ({ persons, filter, handleDeletePerson }) => {
   const personsList = persons
 
     .filter((person) => {
@@ -10,6 +10,9 @@ export const Persons = ({ persons, filter }) => {
         <tr key={person.id}>
           <td>{person.name}</td>
           <td>{person.phone}</td>
+          <td>
+            <button onClick={() => handleDeletePerson(person)}>delete</button>
+          </td>
         </tr>
       );
     });
