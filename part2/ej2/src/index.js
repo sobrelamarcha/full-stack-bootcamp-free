@@ -43,6 +43,19 @@ const App = () => {
     const nuevoObj = { id: persons.length + 1, name: newName, phone: newPhone };
     setPersons(persons.concat(nuevoObj));
 
+    // enviar datos por POST al servidor json-server
+
+    fetch("http://localhost:3001/persons", {
+      method: "POST",
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(nuevoObj),
+    })
+      .then((res) => res.json())
+      .then((res) => console.log(res));
+
     // vaciar inputs
     setNewName("");
     setNewPhone("");
