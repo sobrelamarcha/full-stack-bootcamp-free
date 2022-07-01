@@ -3,8 +3,13 @@ import { createRoot } from "react-dom/client";
 import { Persons } from "./Persons";
 import { PersonForm } from "./PersonForm";
 import { Filter } from "./Filter";
-import { validatePerson } from "./services/helpers";
-import { createPerson, getAllPersons, borrarPerson } from "./services/persons";
+import { compruebaSiEstaVacio, findPerson, maxId } from "./services/helpers";
+import {
+  createPerson,
+  getAllPersons,
+  borrarPerson,
+  updatePerson,
+} from "./services/persons";
 
 const App = () => {
   // const personsData = [
@@ -36,18 +41,57 @@ const App = () => {
   const addPerson = (event) => {
     event.preventDefault();
     // validar entrada
-    if (!validatePerson(persons, newName)) {
-      // alert("abortando inserción");
-      return false;
+    if (compruebaSiEstaVacio(newName)) {
+      alert("Debes escribir algún nombre válido");
+      return;
+    }
+    const foundPerson = findPerson(persons, newName);
+    if (foundPerson) {
+      if (
+        window.confirm(
+          `${newName} is already added on phonebook, replace the old number with a new one?`
+        )
+      ) {
+        // hacer el put
+        const postDataNewPerson = {
+          name: foundPerson.name,
+          phone: newPhone,
+          id: foundPerson.id,
+        };
+        updatePerson(foundPerson.id, postDataNewPerson)
+          .then((res) => res.json())
+          .then((res) => {
+            // una vez se ha hecho el put, ahora en el callback actualizar en la lista
+            const newPersons = persons.map((p) => {
+              if (p.name === newName) {
+                return { name: p.name, phone: newPhone, id: p.id };
+              } else {
+                return p;
+              }
+            });
+
+            setPersons(newPersons);
+            clearForm();
+          });
+
+        return;
+      } else {
+        return;
+      }
     }
 
     // añadir nombre y teléfono
-    const nuevoObj = { id: persons.length + 1, name: newName, phone: newPhone };
+    const nuevaId = maxId(persons) + 1;
+    const nuevoObj = { id: nuevaId, name: newName, phone: newPhone };
     setPersons(persons.concat(nuevoObj));
 
     // creando persona en el json-server
     createPerson(nuevoObj);
 
+    clearForm();
+  };
+
+  const clearForm = () => {
     // vaciar inputs
     setNewName("");
     setNewPhone("");
@@ -67,8 +111,6 @@ const App = () => {
 
   const handleDeletePerson = (person) => {
     if (window.confirm(`Are you sure you want to delete ${person.name}?`)) {
-      console.log(`borrando ${person.id}`);
-
       // borrando persona del json-server
       borrarPerson(person.id)
         .then((response) => {
