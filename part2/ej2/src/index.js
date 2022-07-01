@@ -4,6 +4,7 @@ import { Persons } from "./Persons";
 import { PersonForm } from "./PersonForm";
 import { Filter } from "./Filter";
 import { validatePerson } from "./services/helpers";
+import { createPerson, getAllPersons } from "./services/persons";
 
 const App = () => {
   // const personsData = [
@@ -18,10 +19,10 @@ const App = () => {
   useEffect(() => {
     console.log("effect");
 
-    fetch("http://localhost:3001/persons")
+    getAllPersons()
       .then((response) => response.json())
       .then((data) => {
-        //console.log(data);
+        // console.log(data);
         setPersons(data);
       });
   }, []);
@@ -43,18 +44,8 @@ const App = () => {
     const nuevoObj = { id: persons.length + 1, name: newName, phone: newPhone };
     setPersons(persons.concat(nuevoObj));
 
-    // enviar datos por POST al servidor json-server
-
-    fetch("http://localhost:3001/persons", {
-      method: "POST",
-      headers: {
-        Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(nuevoObj),
-    })
-      .then((res) => res.json())
-      .then((res) => console.log(res));
+    // enviarlo al json-server
+    createPerson(nuevoObj);
 
     // vaciar inputs
     setNewName("");
