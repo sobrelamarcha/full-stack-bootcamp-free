@@ -28,7 +28,12 @@ const App = () => {
 
     // recuperando personas del json-server
     getAllPersons()
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
+        return response.json();
+      })
       .then((data) => {
         // console.log(data);
         setPersons(data);
@@ -75,8 +80,13 @@ const App = () => {
           id: foundPerson.id,
         };
         updatePerson(foundPerson.id, postDataNewPerson)
-          .then((res) => res.json())
-          .then((res) => {
+          .then((response) => {
+            if (!response.ok) {
+              throw Error(response.statusText);
+            }
+            return response.json();
+          })
+          .then((data) => {
             // una vez se ha hecho el put, ahora en el callback actualizar en la lista
             const newPersons = persons.map((p) => {
               if (p.name === newName) {
@@ -111,9 +121,14 @@ const App = () => {
 
     // creando persona en el json-server
     createPerson(nuevoObj)
-      .then((res) => res.json())
-      .then((res) => {
-        //console.log(res)
+      .then((response) => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        //console.log(data)
       })
       .catch((error) => {
         showNotification(`Hubo un error: ${error}`, "error");
@@ -147,6 +162,9 @@ const App = () => {
       // borrando persona del json-server
       borrarPerson(person.id)
         .then((response) => {
+          if (!response.ok) {
+            throw Error(response.statusText);
+          }
           return response.json();
         })
         .then((data) => {
