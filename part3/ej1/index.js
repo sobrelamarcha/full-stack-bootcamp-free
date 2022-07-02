@@ -1,9 +1,17 @@
 const express = require("express");
 const app = express();
 const bp = require("body-parser");
+const morgan = require("morgan");
 
 app.use(bp.json());
 app.use(bp.urlencoded({ extended: true }));
+
+morgan.token("body", (request, response) => JSON.stringify(request.body));
+app.use(
+  morgan(
+    ":method :url :status :response-time ms - :res[content-length] :body - :req[content-length]"
+  )
+);
 
 let persons = [
   {
@@ -102,6 +110,13 @@ app.post("/api/persons", (request, response) => {
 
   response.json(person);
 });
+
+//el siguiente middleware se coloca después de todas las rutas para que se ejecute si no ha entrado en ninguna de las anteriores
+const unknownEndpoint = (request, response) => {
+  response.status(404).send({ error: "unknown endpoint" });
+};
+
+app.use(unknownEndpoint);
 
 const PORT = 3001;
 
