@@ -2,13 +2,18 @@
 
 Ejercicios que voy haciendo del <https://fullstackopen.com/es/> gracias a los vídeos de <https://midu.dev/bootcamp-full-stack-gratis-2021/>
 
-Voy por <https://fullstackopen.com/es/part2/alterando_datos_en_el_servidor#ejercicios-2-15-2-18>
+Índice de las partes <https://fullstackopen.com/es/>
+Voy por <https://fullstackopen.com/es/part3/node_js_y_express#ejercicios-3-1-3-6>
 
 Escuchando:
 
 - <https://www.youtube.com/results?search_query=code+music>
 - <https://www.youtube.com/results?search_query=nature+sounds>
 - <https://www.youtube.com/c/Musicforbodyandspirit/playlists>
+
+Repo:
+
+- Todavía no lo he utilizado, pero por si acaso está en: <https://github.com/fullstack-hy2020>
 
 ## Recomendaciones
 
