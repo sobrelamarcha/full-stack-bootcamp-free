@@ -3,7 +3,7 @@
 Ejercicios que voy haciendo del <https://fullstackopen.com/es/> gracias a los vídeos de <https://midu.dev/bootcamp-full-stack-gratis-2021/>
 
 Índice de las partes <https://fullstackopen.com/es/>
-Voy por <https://fullstackopen.com/es/part3/node_js_y_express#ejercicios-3-1-3-6>
+Voy por <https://fullstackopen.com/es/part3/implementacion_de_la_aplicacion_en_internet#ejercicios-3-9-3-11>
 
 Escuchando:
 
