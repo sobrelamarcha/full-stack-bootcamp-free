@@ -7,9 +7,9 @@ Voy por <https://fullstackopen.com/es/part3/node_js_y_express#ejercicios-3-1-3-6
 
 Escuchando:
 
-- <https://www.youtube.com/results?search_query=code+music>
-- <https://www.youtube.com/results?search_query=nature+sounds>
-- <https://www.youtube.com/c/Musicforbodyandspirit/playlists>
+- Chillout, nature, world.
+- Explorar:
+  - <https://www.youtube.com/c/AWorldOfMusicChannel/videos>
 
 Repo:
 
@@ -24,14 +24,18 @@ Repo:
 
 ## Ejercicios hechos
 
-### part 1
+### part1
 
-Ej1: temario de nombres de lecciones y número de ejercicios
-Ej2: votaciones de satisfacción
-Ej3: anécdotas con votos
+ej1: temario de nombres de lecciones y número de ejercicios
+ej2: votaciones de satisfacción
+ej3: anécdotas con votos
 
-### part 2
+### part2
 
-Ej1: basado en el Ej1 de la parte1, pero ampliado a varios cursos
-Ej2: agenda telefónica
-Ej3: info de países y meteorología
+ej1: basado en el ej1 de la parte1, pero ampliado a varios cursos
+ej2: agenda telefónica
+ej3: info de países y meteorología
+
+### part3
+
+ej1: parte servidora en node a modo de api
