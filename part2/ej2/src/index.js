@@ -32,6 +32,9 @@ const App = () => {
       .then((data) => {
         // console.log(data);
         setPersons(data);
+      })
+      .catch((error) => {
+        showNotification(`Hubo un error: ${error}`, "error");
       });
   }, []);
 
@@ -41,10 +44,10 @@ const App = () => {
   const [newFilter, setNewFilter] = useState("");
   const [notification, setNotification] = useState({});
 
-  const showSuccessNotification = (text) => {
+  const showNotification = (text, type) => {
     setNotification({
       text: text,
-      type: "success",
+      type: type,
     });
     setTimeout(() => {
       setNotification([]);
@@ -84,11 +87,15 @@ const App = () => {
             });
 
             setPersons(newPersons);
-            showSuccessNotification(
-              `Se modificó el teléfono de ${foundPerson.name} correctamente`
+            showNotification(
+              `Se modificó el teléfono de ${foundPerson.name} correctamente`,
+              "success"
             );
 
             clearForm();
+          })
+          .catch((error) => {
+            showNotification(`Hubo un error: ${error}`, "error");
           });
 
         return;
@@ -103,9 +110,16 @@ const App = () => {
     setPersons(persons.concat(nuevoObj));
 
     // creando persona en el json-server
-    createPerson(nuevoObj);
+    createPerson(nuevoObj)
+      .then((res) => res.json())
+      .then((res) => {
+        //console.log(res)
+      })
+      .catch((error) => {
+        showNotification(`Hubo un error: ${error}`, "error");
+      });
 
-    showSuccessNotification(`Se añadió a ${nuevoObj.name} correctamente`);
+    showNotification(`Se añadió a ${nuevoObj.name} correctamente`, "success");
 
     clearForm();
   };
@@ -142,6 +156,9 @@ const App = () => {
             return p.id !== person.id;
           });
           setPersons(finalPersons);
+        })
+        .catch((error) => {
+          showNotification(`Hubo un error: ${error}`, "error");
         });
     }
   };

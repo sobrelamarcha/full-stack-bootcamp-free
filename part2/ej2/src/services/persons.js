@@ -11,18 +11,14 @@ export const borrarPerson = (id) => {
 };
 
 export const createPerson = (nuevoObj) => {
-  fetch(baseUrl, {
+  return fetch(baseUrl, {
     method: "POST",
     headers: {
       Accept: "application/json, text/plain, */*",
       "Content-Type": "application/json",
     },
     body: JSON.stringify(nuevoObj),
-  })
-    .then((res) => res.json())
-    .then((res) => {
-      //console.log(res)
-    });
+  });
 };
 
 export const updatePerson = (id, nuevoObj) => {
