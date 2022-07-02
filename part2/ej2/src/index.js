@@ -10,6 +10,8 @@ import {
   borrarPerson,
   updatePerson,
 } from "./services/persons";
+import "./styles.css";
+import { Notification } from "./Notification";
 
 const App = () => {
   // const personsData = [
@@ -37,6 +39,17 @@ const App = () => {
   const [newName, setNewName] = useState("");
   const [newPhone, setNewPhone] = useState("");
   const [newFilter, setNewFilter] = useState("");
+  const [notification, setNotification] = useState({});
+
+  const showSuccessNotification = (text) => {
+    setNotification({
+      text: text,
+      type: "success",
+    });
+    setTimeout(() => {
+      setNotification([]);
+    }, 4000);
+  };
 
   const addPerson = (event) => {
     event.preventDefault();
@@ -71,6 +84,10 @@ const App = () => {
             });
 
             setPersons(newPersons);
+            showSuccessNotification(
+              `Se modificó el teléfono de ${foundPerson.name} correctamente`
+            );
+
             clearForm();
           });
 
@@ -87,6 +104,8 @@ const App = () => {
 
     // creando persona en el json-server
     createPerson(nuevoObj);
+
+    showSuccessNotification(`Se añadió a ${nuevoObj.name} correctamente`);
 
     clearForm();
   };
@@ -131,6 +150,7 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
       {/* <div>debug: {newName}</div> */}
+      <Notification text={notification.text} type={notification.type} />
       <PersonForm
         addPerson={addPerson}
         newName={newName}
