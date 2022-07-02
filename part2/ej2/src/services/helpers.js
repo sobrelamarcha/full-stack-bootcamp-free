@@ -1,6 +1,7 @@
 export const findPerson = (persons, newName) => {
-  const found = persons.filter((person) => person.name === newName);
-  return found[0];
+  const found = persons.find((person) => person.name === newName);
+  console.log(found);
+  return found;
 };
 
 export const compruebaSiEstaVacio = (newName) => {
