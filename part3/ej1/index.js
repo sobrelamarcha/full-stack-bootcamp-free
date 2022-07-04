@@ -2,9 +2,11 @@ const express = require("express");
 const app = express();
 const bp = require("body-parser");
 const morgan = require("morgan");
+const cors = require("cors");
 
 app.use(bp.json());
 app.use(bp.urlencoded({ extended: true }));
+app.use(cors());
 
 morgan.token("body", (request, response) => JSON.stringify(request.body));
 app.use(
@@ -69,6 +71,7 @@ app.delete("/api/persons/:id", (request, response) => {
     return idPerson !== p.id;
   });
   response.status(204).end();
+  // response.json({ success: `person with id ${idPerson} deleted successfully` });
 });
 
 const maxId = (array) => {

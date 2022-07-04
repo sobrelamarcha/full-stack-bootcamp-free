@@ -162,12 +162,13 @@ const App = () => {
       // borrando persona del json-server
       borrarPerson(person.id)
         .then((response) => {
+          console.log(response);
           if (!response.ok) {
             throw Error(response.statusText);
           }
-          return response.json();
+          return; // en nuestra api de nodejs no devolvemos nada, solo un status 204, pero no un json
         })
-        .then((data) => {
+        .then(() => {
           // quitamos a la persona del array
 
           const finalPersons = persons.filter((p) => {
