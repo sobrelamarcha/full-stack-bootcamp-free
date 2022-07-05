@@ -15,6 +15,12 @@ Repo:
 
 - Todavía no lo he utilizado, pero por si acaso está en: <https://github.com/fullstack-hy2020>
 
+## Notas importantes
+
+Cuando se ejecuta un script de npm especificado en package.json que contiene comandos bash, en Windows dará un error. Para que use bash:
+
+- npm config set script-shell "C:\\Program Files\\git\\bin\\bash.exe"
+
 ## Recomendaciones
 
 - Recomendaciones <https://midu.dev/libros-gratis-javascript-para-aprender/>
