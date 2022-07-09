@@ -61,14 +61,20 @@ app.get("/api/persons", (request, response) => {
 });
 
 app.get("/api/persons/:id", (request, response) => {
-  const idPerson = Number(request.params.id);
-  const person = persons.find((p) => p.id === idPerson);
-
-  if (person) {
-    response.json(person);
-  } else {
-    response.status(404).end();
-  }
+  const { id } = request.params;
+  console.log(`searching person with id: ${id}`);
+  Person.findById(id)
+    .then((result) => {
+      if (result) {
+        response.json(result);
+      } else {
+        response.status(404).end();
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      response.status(500).send({ error: "malformed id" });
+    });
 });
 
 app.delete("/api/persons/:id", (request, response) => {
