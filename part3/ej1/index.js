@@ -5,6 +5,7 @@ const bp = require("body-parser");
 const morgan = require("morgan");
 const cors = require("cors");
 const Person = require("./models/person");
+const { response } = require("express");
 
 app.use(bp.json());
 app.use(bp.urlencoded({ extended: true }));
@@ -60,7 +61,7 @@ app.get("/api/persons", (request, response) => {
   });
 });
 
-app.get("/api/persons/:id", (request, response) => {
+app.get("/api/persons/:id", (request, response, next) => {
   const { id } = request.params;
   console.log(`searching person with id: ${id}`);
   Person.findById(id)
@@ -68,22 +69,22 @@ app.get("/api/persons/:id", (request, response) => {
       if (result) {
         response.json(result);
       } else {
-        response.status(404).end();
+        next(error);
       }
     })
     .catch((error) => {
-      console.log(error);
-      response.status(500).send({ error: "malformed id" });
+      next(error);
     });
 });
 
-app.delete("/api/persons/:id", (request, response) => {
-  const idPerson = Number(request.params.id);
-  persons = persons.filter((p) => {
-    return idPerson !== p.id;
-  });
-  response.status(204).end();
-  // response.json({ success: `person with id ${idPerson} deleted successfully` });
+app.delete("/api/persons/:id", (request, response, next) => {
+  const { id } = request.params;
+
+  Person.findByIdAndRemove(id)
+    .then((result) => {
+      response.status(204).end();
+    })
+    .catch((error) => next(error));
 });
 
 const maxId = (array) => {
@@ -130,6 +131,18 @@ app.post("/api/persons", (request, response) => {
     response.json(savedPerson);
   });
 });
+
+const errorHandler = (error, request, response, next) => {
+  console.error(error);
+
+  if (error.name === "CastError") {
+    return response.status(400).send({ error: "malformed id" });
+  } else {
+    return response.status(500).end();
+  }
+};
+
+app.use(errorHandler);
 
 //el siguiente middleware se coloca después de todas las rutas para que se ejecute si no ha entrado en ninguna de las anteriores
 const unknownEndpoint = (request, response) => {
