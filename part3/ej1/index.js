@@ -98,26 +98,31 @@ app.post("/api/persons", (request, response) => {
   if (!body.phone) {
     return response.status(400).json({ error: "phone content missing" });
   }
-  // comprobar si ya existe el nombre
-  if (
-    persons.find((p) => {
-      return p.name === body.name;
-    })
-  ) {
-    return response
-      .status(400)
-      .json({ error: "the name already exists in phonebook" });
-  }
+  // comprobar si ya existe el nombre (deshabilitado temporalmente)
+  // if (
+  //   persons.find((p) => {
+  //     return p.name === body.name;
+  //   })
+  // ) {
+  //   return response
+  //     .status(400)
+  //     .json({ error: "the name already exists in phonebook" });
+  // }
 
-  const person = {
+  // const person = {
+  //   name: body.name,
+  //   phone: body.phone,
+  //   id: maxId(persons) + 1,
+  // };
+
+  const person = new Person({
     name: body.name,
     phone: body.phone,
-    id: maxId(persons) + 1,
-  };
+  });
 
-  persons = persons.concat(person);
-
-  response.json(person);
+  person.save().then((savedPerson) => {
+    response.json(savedPerson);
+  });
 });
 
 //el siguiente middleware se coloca después de todas las rutas para que se ejecute si no ha entrado en ninguna de las anteriores
