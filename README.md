@@ -3,7 +3,7 @@
 Ejercicios que voy haciendo del <https://fullstackopen.com/es/> gracias a los vídeos de <https://midu.dev/bootcamp-full-stack-gratis-2021/>
 
 Índice de las partes <https://fullstackopen.com/es/>
-Voy por <https://fullstackopen.com/es/part3/guardando_datos_en_mongo_db>
+Voy por <https://fullstackopen.com/es/part4/estructura_de_la_aplicacion_backend_introduccion_a_las_pruebas>
 
 Escuchando:
 
