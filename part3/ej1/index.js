@@ -49,9 +49,14 @@ app.get("/", (request, response) => {
   response.send("<h1>Hello World</h1>");
 });
 
-app.get("/about", (request, response) => {
+app.get("/info", (request, response) => {
   const fechaHoy = new Date();
-  response.send(`This is the about page<br>${fechaHoy}`);
+  Person.find({}).then((persons) => {
+    totalPersons = persons.length;
+    response.send(
+      `Phonebook has info for ${totalPersons} people <br>${fechaHoy}`
+    );
+  });
 });
 
 app.get("/api/persons", (request, response) => {
