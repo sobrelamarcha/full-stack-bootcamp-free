@@ -22,29 +22,6 @@ app.use(
   )
 );
 
-let persons = [
-  {
-    name: "Arto Hellas",
-    phone: "040-123456",
-    id: 1,
-  },
-  {
-    name: "Ada Lovelace",
-    phone: "39-44-5323523",
-    id: 3,
-  },
-  {
-    name: "test",
-    phone: "1111111",
-    id: 4,
-  },
-  {
-    name: "test2",
-    phone: "33333",
-    id: 5,
-  },
-];
-
 app.get("/", (request, response) => {
   response.send("<h1>Hello World</h1>");
 });
@@ -125,31 +102,19 @@ app.post("/api/persons", (request, response) => {
   if (!body.phone) {
     return response.status(400).json({ error: "phone content missing" });
   }
-  // comprobar si ya existe el nombre (deshabilitado temporalmente)
-  // if (
-  //   persons.find((p) => {
-  //     return p.name === body.name;
-  //   })
-  // ) {
-  //   return response
-  //     .status(400)
-  //     .json({ error: "the name already exists in phonebook" });
-  // }
-
-  // const person = {
-  //   name: body.name,
-  //   phone: body.phone,
-  //   id: maxId(persons) + 1,
-  // };
 
   const person = new Person({
     name: body.name,
     phone: body.phone,
   });
 
-  person.save().then((savedPerson) => {
-    response.json(savedPerson);
-  });
+  person
+    .save()
+    .then((savedPerson) => savedPerson.toJSON())
+    .then((savedAndFormattedPerson) => {
+      response.json(savedAndFormattedPerson);
+    })
+    .catch((error) => next(error));
 });
 
 app.use(notFound);
