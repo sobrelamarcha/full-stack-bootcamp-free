@@ -6,6 +6,8 @@ const morgan = require("morgan");
 const cors = require("cors");
 const Person = require("./models/person");
 const { response } = require("express");
+const notFound = require("./middleware/notFound.js");
+const handleErrors = require("./middleware/handleErrors.js");
 
 app.use(bp.json());
 app.use(bp.urlencoded({ extended: true }));
@@ -47,12 +49,9 @@ app.get("/", (request, response) => {
   response.send("<h1>Hello World</h1>");
 });
 
-app.get("/info", (request, response) => {
-  const totalPersons = persons.length;
+app.get("/about", (request, response) => {
   const fechaHoy = new Date();
-  response.send(
-    `Phonebook has info for ${totalPersons} people <br>${fechaHoy}`
-  );
+  response.send(`This is the about page<br>${fechaHoy}`);
 });
 
 app.get("/api/persons", (request, response) => {
@@ -93,6 +92,22 @@ const maxId = (array) => {
   return max;
 };
 
+app.put("/api/persons/:id", (request, response, next) => {
+  const { id } = request.params;
+  const person = request.body;
+
+  const newPerson = {
+    name: person.name,
+    phone: person.phone,
+  };
+
+  Person.findByIdAndUpdate(id, newPerson, { new: true })
+    .then((result) => {
+      return response.json(result);
+    })
+    .catch((error) => next(error));
+});
+
 app.post("/api/persons", (request, response) => {
   const body = request.body;
 
@@ -132,24 +147,9 @@ app.post("/api/persons", (request, response) => {
   });
 });
 
-const errorHandler = (error, request, response, next) => {
-  console.error(error);
+app.use(notFound);
 
-  if (error.name === "CastError") {
-    return response.status(400).send({ error: "malformed id" });
-  } else {
-    return response.status(500).end();
-  }
-};
-
-app.use(errorHandler);
-
-//el siguiente middleware se coloca después de todas las rutas para que se ejecute si no ha entrado en ninguna de las anteriores
-const unknownEndpoint = (request, response) => {
-  response.status(404).send({ error: "unknown endpoint" });
-};
-
-app.use(unknownEndpoint);
+app.use(handleErrors);
 
 const PORT = process.env.PORT || 3001;
 
