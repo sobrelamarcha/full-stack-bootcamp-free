@@ -68,50 +68,8 @@ const App = () => {
     }
     const foundPerson = findPerson(persons, newName);
     if (foundPerson) {
-      if (
-        window.confirm(
-          `${newName} is already added on phonebook, replace the old number with a new one?`
-        )
-      ) {
-        // hacer el put
-        const postDataNewPerson = {
-          name: foundPerson.name,
-          phone: newPhone,
-          id: foundPerson.id,
-        };
-        updatePerson(foundPerson.id, postDataNewPerson)
-          .then((response) => {
-            if (!response.ok) {
-              throw Error(response.statusText);
-            }
-            return response.json();
-          })
-          .then((data) => {
-            // una vez se ha hecho el put, ahora en el callback actualizar en la lista
-            const newPersons = persons.map((p) => {
-              if (p.name === newName) {
-                return { name: p.name, phone: newPhone, id: p.id };
-              } else {
-                return p;
-              }
-            });
-
-            setPersons(newPersons);
-            showNotification(
-              `Se modificó el teléfono de ${foundPerson.name} correctamente`,
-              "success"
-            );
-
-            clearForm();
-          })
-          .catch((error) => {
-            showNotification(`Hubo un error: ${error}`, "error");
-          });
-
-        return;
-      } else {
-        return;
-      }
+      alert(`${newName} is already added on phonebook, use another name`);
+      return;
     }
 
     // añadir nombre y teléfono
