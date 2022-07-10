@@ -80,21 +80,35 @@ const App = () => {
     // creando persona en el json-server
     createPerson(nuevoObj)
       .then((response) => {
-        if (!response.ok) {
-          throw Error(response.statusText);
+        //console.log(response);
+
+        if (response.status === 400) {
+          return response.json();
         }
+
+        if (!response.ok) {
+          throw Error(response.json());
+        }
+
         return response.json();
       })
       .then((data) => {
-        //console.log(data)
+        //console.log("yeah", data);
+        if ("error" in data) {
+          showNotification(`Hubo un error: ${data.error}`, "error");
+        } else {
+          showNotification(
+            `Se añadió a ${nuevoObj.name} correctamente`,
+            "success"
+          );
+
+          clearForm();
+        }
       })
       .catch((error) => {
+        console.log("y el error fue:", error);
         showNotification(`Hubo un error: ${error}`, "error");
       });
-
-    showNotification(`Se añadió a ${nuevoObj.name} correctamente`, "success");
-
-    clearForm();
   };
 
   const clearForm = () => {
