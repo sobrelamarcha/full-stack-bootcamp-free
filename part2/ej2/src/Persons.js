@@ -2,7 +2,7 @@ export const Persons = ({ persons, filter, handleDeletePerson }) => {
   const personsList = persons
 
     .filter((person) => {
-      return person.name.toLowerCase().indexOf(filter.toLowerCase()) !== -1;
+      return person.name.toLowerCase().indexOf(filter.toLowerCase()) !== -1
     })
 
     .map((person) => {
@@ -14,8 +14,8 @@ export const Persons = ({ persons, filter, handleDeletePerson }) => {
             <button onClick={() => handleDeletePerson(person)}>delete</button>
           </td>
         </tr>
-      );
-    });
+      )
+    })
 
   return (
     <>
@@ -29,5 +29,5 @@ export const Persons = ({ persons, filter, handleDeletePerson }) => {
         <tbody>{personsList}</tbody>
       </table>
     </>
-  );
-};
+  )
+}
