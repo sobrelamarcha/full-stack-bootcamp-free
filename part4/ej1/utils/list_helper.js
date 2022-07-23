@@ -22,10 +22,15 @@ const favoriteBlog = (blogs) => {
   return blogs.find((blog) => blog.likes === maxLikes)
 }
 
+const getMax = (obj) => {
+  const keys = Object.keys(obj) //=
+  const maximo = _.maxBy(keys, (elem) => { return obj[elem] }) //=
+  return maximo
+}
+
 const mostBlogs = (blogs) => {
   const contadores = _.countBy(blogs, 'author') //=
-  const keys = Object.keys(contadores) //=
-  const maximo = _.maxBy(keys, (elem) => { return contadores[elem] }) //=
+  const maximo = getMax(contadores) //=
 
   const finalAuthor = {
     author: maximo,
@@ -36,8 +41,30 @@ const mostBlogs = (blogs) => {
   return finalAuthor
 }
 
-// const result = mostBlogs(testdata.listWithManyBlogs) //=
+const mostLikes = (blogs) => {
+  const blogAuthors = _.groupBy(blogs, 'author') //=
+
+  const obj = {}
+  for (const author in blogAuthors) {
+    obj[author] = blogAuthors[author].reduce((acc, o) => {
+      return acc + o.likes
+    }, 0)
+  }
+
+  console.log(obj)
+  const maximo = getMax(obj) //=
+
+  const newObj = {
+    author: maximo,
+    likes: obj[maximo]
+  } //=
+
+  return newObj
+}
+
+// const result1 = mostBlogs(testdata.listWithManyBlogs) //=
+// const result2 = mostLikes(testdata.listWithManyBlogs) //=
 
 module.exports = {
-  dummy, totalLikes, favoriteBlog, mostBlogs
+  dummy, totalLikes, favoriteBlog, mostBlogs, mostLikes
 }
