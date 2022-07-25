@@ -21,9 +21,24 @@ describe('Get all the blogs', () => {
       .expect('Content-Type', /application\/json/)
   })
 
-  test('verify that property id exists', async () => {
+  test('verify that property id exists in all of them', async () => {
     const allBlogs = await api.get('/api/blogs')
-    expect(allBlogs.body[0].id).toBeDefined()
+    allBlogs.body.forEach(element => {
+      expect(element.id).toBeDefined()
+    })
+  })
+})
+
+describe('Create a new blog', () => {
+  test('if title and url are not defined, the api must return a 400 error', async () => {
+    const blogObj = {
+      likes: 6
+    }
+    const newBlog = new Blog(blogObj)
+
+    const result = await api.post('/api/blogs').send(newBlog).expect(400)
+
+    expect(result.text).toBe('{"error":"content missing"}')
   })
 })
 
