@@ -3,7 +3,7 @@
 Ejercicios que voy haciendo del <https://fullstackopen.com/es/> gracias a los vídeos de <https://midu.dev/bootcamp-full-stack-gratis-2021/>
 
 Índice de las partes <https://fullstackopen.com/es/>
-Voy por <https://fullstackopen.com/es/part4/estructura_de_la_aplicacion_backend_introduccion_a_las_pruebas>
+Voy por <https://fullstackopen.com/es/part4/porbando_el_backend#ejercicios-4-8-4-12>
 
 Escuchando:
 
@@ -46,3 +46,7 @@ ej1: parte servidora en NodeJS a modo de api que gestiona los contactos de la ag
 Para subir a Heroku se ha creado un repo a parte (<https://github.com/sobrelamarcha/heroku-gestor-telefonico>). En mi local está en (nota: si haces un `git remote -v` verás que también hay un origen llamado heroku):
 
     D:\xampp\htdocs\proyectos\heroku\ej1\
+
+### part4
+
+Tal como recomienda el curso he dejado para más adelante los ejercicios 4.6 y 4.7 porque además recomienda resolverlos con la biblioteca Lodash. (<https://fullstackopen.com/es/part4/estructura_de_la_aplicacion_backend_introduccion_a_las_pruebas#ejercicios-4-3-4-7>)

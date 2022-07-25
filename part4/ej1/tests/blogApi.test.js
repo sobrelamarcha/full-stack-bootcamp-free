@@ -14,10 +14,17 @@ beforeEach(async () => {
   }
 })
 
-test('blogs are returned as json', async () => {
-  await api.get('/api/blogs')
-    .expect(200)
-    .expect('Content-Type', /application\/json/)
+describe('Get all the blogs', () => {
+  test('blogs are returned as json', async () => {
+    await api.get('/api/blogs')
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
+  })
+
+  test('verify that property id exists', async () => {
+    const allBlogs = await api.get('/api/blogs')
+    expect(allBlogs.body[0].id).toBeDefined()
+  })
 })
 
 afterAll(() => { mongoose.connection.close(); console.log('cerrada conexion') })
